@@ -1,6 +1,6 @@
 // References to DOM elements
-const popcat = document.querySelector('#popcat');
-const btn = document.querySelector('#btn');
+const image = document.querySelector('#image');
+const popButton = document.querySelector('#pop-btn');
 const popCount = document.querySelector('#count');
 
 // The two images of the POP CAT
@@ -33,25 +33,32 @@ const addPopCount = () => {
 // The functions which will perform the cool stuff
 const openMouth = (e) => {
     e.preventDefault();
+
     addPopCount();
     popCount.innerText = getPopCount();
-    popcat.src = openMouthImg;
+
+    image.src = openMouthImg;
     openMouthSound.play();
+
+    popButton.classList.add('btn-active');
 };
 
 const closeMouth = (e) => {
     e.preventDefault();
-    popcat.src = closeMouthImg;
+
+    image.src = closeMouthImg;
     closeMouthSound.play();
+
+    popButton.classList.remove('btn-active');
 };
 
 // Display current pop count
 popCount.innerText = getPopCount();
 
 // Event Handlers (Desktops)
-btn.addEventListener('mousedown', openMouth);
-btn.addEventListener('mouseup', closeMouth);
+document.addEventListener('mousedown', openMouth);
+document.addEventListener('mouseup', closeMouth);
 
 // Event Handers (Touch Screens)
-btn.addEventListener('touchstart', openMouth);
-btn.addEventListener('touchend', closeMouth);
+document.addEventListener('touchstart', openMouth);
+document.addEventListener('touchend', closeMouth);

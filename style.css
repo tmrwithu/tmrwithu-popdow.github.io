@@ -13,11 +13,11 @@ body {
     align-items: center;
 }
 
-#popcat {
+#image {
     width: 400px;
 }
 
-#btn {
+.btn {
     width: 150px;
     height: 70px;
     font-size: 2em;
@@ -30,17 +30,17 @@ body {
     border-radius: 30px;
 }
 
-#btn:focus {
+.btn:focus {
     outline: none;
 }
 
-#btn:active {
+.btn-active {
     border: 3px solid #FDF2F8;
     color: #FDF2F8;
 }
 
 @media only screen and (max-width: 480px) {
-    #popcat {
+    #image {
         width: 200px;
     }
 }
