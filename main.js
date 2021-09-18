@@ -18,7 +18,10 @@ function syncCook() {
 function addCook() {
     console.log("add");
     count = syncCook();
-    document.cookie = `pop-cook=${++count};`;
+    console.log(count);
+    let txt = `pop-cook=${++count};`;
+    console.log(txt);
+    document.cookie = txt;
 }
 // The two images of the POP CAT
 const openMouthImg = "./images/DOW2.png";
