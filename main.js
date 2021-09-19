@@ -1,61 +1,64 @@
 // References to DOM elements
-const popcat = document.querySelector("#popcat");
-const btn = document.querySelector("#btn");
-const popCount = document.querySelector("#count");
-popCount.innerText = syncCook();
+const image = document.querySelector('#image');
+const popButton = document.querySelector('#pop-btn');
+const popCount = document.querySelector('#count');
 
-function syncCook() {
-    let popCookie = document.cookie.split(";").filter(m => m.startsWith('pop-cook'));
-    let count = null;
-    if (!popCookie.length) {
-        document.cookie = 'pop-cook=0;';
-        count = 0;
-    } else {
-        count = parseInt(popCookie[0].substr(9));
-    }
-    return count;
-}
-function addCook() {
-    console.log("add");
-    count = syncCook();
-    console.log(count);
-    let txt = `pop-cook=${++count};`;
-    console.log(txt);
-    document.cookie = txt;
-}
 // The two images of the POP CAT
-const openMouthImg = "./images/DOW2.png";
-const closeMouthImg = "./images/DOW1.png";
+const openMouthImg = './images/DOW2.png';
+const closeMouthImg = './images/DOW1.png';
 
 // The two Popping sounds
-const openMouthSound = new Audio("./sound/sound-open.mp3");
-const closeMouthSound = new Audio("./sound/sound-close.mp3");
+const openMouthSound = new Audio('./sound/sound-open.mp3');
+const closeMouthSound = new Audio('./sound/sound-close.mp3');
 
-// Event Handlers (Desktops)
-btn.addEventListener("mousedown", openMouth);
-btn.addEventListener("mouseup", closeMouth);
+const getCookie = (name) => {
+    const cookie = document.cookie.split('; ').filter((e) => e.startsWith(name))[0];
+    if (!cookie) return cookie;
+    return cookie.split('=')[1];
+};
 
-// Event Handers (Touch Screens)
-btn.addEventListener("touchstart", function (e) {
-    e.preventDefault();
-    openMouth();
-})
+const setCookie = (name, value) => {
+    document.cookie = `${name}=${value}`;
+    return value;
+};
 
-btn.addEventListener("touchend", function (e) {
+const getPopCount = () => {
+    return (getCookie('pop-count') || setCookie('pop-count', 0));
+};
 
-    e.preventDefault();
-    closeMouth();
-})
+const addPopCount = () => {
+    setCookie('pop-count', parseInt(getPopCount()) + 1);
+};
 
 // The functions which will perform the cool stuff
-function openMouth() {
-    addCook();
-    popCount.innerText = syncCook();
-    popcat.src = openMouthImg;
-    openMouthSound.play();
-}
+const openMouth = (e) => {
+    e.preventDefault();
 
-function closeMouth() {
-    popcat.src = closeMouthImg;
+    addPopCount();
+    popCount.innerText = getPopCount();
+
+    image.src = openMouthImg;
+    openMouthSound.play();
+
+    popButton.classList.add('btn-active');
+};
+
+const closeMouth = (e) => {
+    e.preventDefault();
+
+    image.src = closeMouthImg;
     closeMouthSound.play();
-}
+
+    popButton.classList.remove('btn-active');
+};
+
+// Display current pop count
+popCount.innerText = getPopCount();
+
+// Event Handlers (Desktops)
+document.addEventListener('mousedown', openMouth);
+document.addEventListener('mouseup', closeMouth);
+
+// Event Handers (Touch Screens)
+document.addEventListener('touchstart', openMouth);
+document.addEventListener('touchend', closeMouth);
