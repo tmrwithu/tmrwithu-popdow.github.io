@@ -38,6 +38,8 @@ const openMouth = (e) => {
     popCount.innerText = getPopCount();
 
     image.src = openMouthImg;
+    closeMouthSound.pause();
+    closeMouthSound.currentTime = 0;
     openMouthSound.play();
 
     popButton.classList.add('btn-active');
@@ -47,6 +49,8 @@ const closeMouth = (e) => {
     e.preventDefault();
 
     image.src = closeMouthImg;
+    openMouthSound.pause();
+    openMouthSound.currentTime = 0;
     closeMouthSound.play();
 
     popButton.classList.remove('btn-active');
