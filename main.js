@@ -48,6 +48,8 @@ const closeMouth = (e) => {
 
 popCount.innerText = getPopCount();
 
+document.addEventListener('keydown', openMouth);
+document.addEventListener('keyup', closeMouth);
 document.addEventListener('mousedown', openMouth);
 document.addEventListener('mouseup', closeMouth);
 document.addEventListener('touchstart', openMouth);
