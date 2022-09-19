@@ -7,6 +7,10 @@ Howler.volume(0.2);
 const openMouthSound = new Howl({ src: ['./sound/sound-open.mp3'] });
 const closeMouthSound = new Howl({ src: ['./sound/sound-close.mp3'] });
 
+const commaSeparate = (number) => {
+    return Intl.NumberFormat('th-TH').format(number);
+};
+
 const getCookie = (name) => {
     const cookie = document.cookie.split('; ').filter((e) => e.startsWith(name))[0];
     if (!cookie) return cookie;
@@ -31,7 +35,7 @@ const addPopCount = () => {
 const openMouth = (e) => {
     e.preventDefault();
 
-    popCount.innerText = addPopCount();
+    popCount.innerText = commaSeparate(addPopCount());
 
     openMouthImg.style.display = 'block';
     closeMouthImg.style.display = 'none';
@@ -46,7 +50,7 @@ const closeMouth = (e) => {
     closeMouthSound.play();
 };
 
-popCount.innerText = getPopCount();
+popCount.innerText = commaSeparate(getPopCount());
 
 document.addEventListener('keydown', openMouth);
 document.addEventListener('keyup', closeMouth);
