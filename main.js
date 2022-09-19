@@ -1,15 +1,15 @@
-// References to DOM elements
-const image = document.querySelector('#image');
-const popButton = document.querySelector('#pop-btn');
 const popCount = document.querySelector('#count');
 
-// The two images of the POP CAT
-const openMouthImg = './images/DOW2.png';
-const closeMouthImg = './images/DOW1.png';
+const openMouthImg = document.querySelector('#pop-img');
+const closeMouthImg = document.querySelector('#unpop-img');
 
-// The two Popping sounds
-const openMouthSound = new Audio('./sound/sound-open.mp3');
-const closeMouthSound = new Audio('./sound/sound-close.mp3');
+Howler.volume(0.2);
+const openMouthSound = new Howl({ src: ['./sound/sound-open.mp3'] });
+const closeMouthSound = new Howl({ src: ['./sound/sound-close.mp3'] });
+
+const commaSeparate = (number) => {
+    return Intl.NumberFormat('th-TH').format(number);
+};
 
 const getCookie = (name) => {
     const cookie = document.cookie.split('; ').filter((e) => e.startsWith(name))[0];
@@ -27,42 +27,34 @@ const getPopCount = () => {
 };
 
 const addPopCount = () => {
-    setCookie('pop-count', parseInt(getPopCount()) + 1);
+    const newCount = parseInt(getPopCount()) + 1;
+    setCookie('pop-count', newCount);
+    return newCount;
 };
 
-// The functions which will perform the cool stuff
 const openMouth = (e) => {
     e.preventDefault();
 
-    addPopCount();
-    popCount.innerText = getPopCount();
+    popCount.innerText = commaSeparate(addPopCount());
 
-    image.src = openMouthImg;
-    closeMouthSound.pause();
-    closeMouthSound.currentTime = 0;
+    openMouthImg.style.display = 'block';
+    closeMouthImg.style.display = 'none';
     openMouthSound.play();
-
-    popButton.classList.add('btn-active');
 };
 
 const closeMouth = (e) => {
     e.preventDefault();
 
-    image.src = closeMouthImg;
-    openMouthSound.pause();
-    openMouthSound.currentTime = 0;
+    openMouthImg.style.display = 'none';
+    closeMouthImg.style.display = 'block';
     closeMouthSound.play();
-
-    popButton.classList.remove('btn-active');
 };
 
-// Display current pop count
-popCount.innerText = getPopCount();
+popCount.innerText = commaSeparate(getPopCount());
 
-// Event Handlers (Desktops)
+document.addEventListener('keydown', openMouth);
+document.addEventListener('keyup', closeMouth);
 document.addEventListener('mousedown', openMouth);
 document.addEventListener('mouseup', closeMouth);
-
-// Event Handers (Touch Screens)
 document.addEventListener('touchstart', openMouth);
 document.addEventListener('touchend', closeMouth);

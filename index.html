@@ -5,20 +5,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:image" content="./images/unpop.webp">
+
     <link rel="stylesheet" href="./style.css">
-    <link rel="icon" type="image/png" href="./images/DOW1.png"/>
+    <link rel="icon" type="image/webp" href="./images/unpop.webp"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <script src="./main.js" defer></script>
+
     <title>Pop Dow</title>
 </head>
 
 <body>
     <div class="wrapper">
-        <center>
-            <h1>POP COUNT : <span id="count">0</span></h1>
-        </center>
-        <img id="image" src="./images/DOW1.png" alt="">
-        <button id="pop-btn" class="btn">POP</button>
+        <h1 class="title">POPDOW</h1>
+        <h2 id="count">0</h2>
+
+        <img id="pop-img" class="pop-img" src="./images/pop.webp" alt="" style="display: none;">
+        <img id="unpop-img" class="pop-img" src="./images/unpop.webp" alt="">
     </div>
+    
 </body>
 
 </html>
